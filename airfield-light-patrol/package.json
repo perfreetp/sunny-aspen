@@ -1,0 +1,23 @@
+{
+  "name": "airfield-light-patrol",
+  "private": true,
+  "version": "1.0.0",
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview",
+    "test": "node scripts/smoke-test.mjs && node scripts/e2e-package-test.mjs"
+  },
+  "devDependencies": {
+    "@sveltejs/vite-plugin-svelte": "^5.0.3",
+    "svelte": "^5.20.0",
+    "typescript": "^5.7.3",
+    "vite": "^6.2.0"
+  },
+  "dependencies": {
+    "jszip": "^3.10.1",
+    "pixi-viewport": "^4.38.0",
+    "pixi.js": "^7.4.3"
+  }
+}
