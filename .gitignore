@@ -16,3 +16,8 @@ node_modules/
 __pycache__/
 .venv/
 venv/
+
+dist/
+*.log
+smoke-*.png
+interaction-error.png
