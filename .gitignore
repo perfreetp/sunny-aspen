@@ -13,6 +13,14 @@ credentials*.json
 .npmrc
 .pypirc
 node_modules/
+dist/
+*.tsbuildinfo
+*.local
+cdp-result.json
+shot-*.png
+test-export.html
+tmp-gen-export.*
+cdp-check.mjs
 __pycache__/
 .venv/
 venv/

@@ -1,0 +1,12 @@
+{
+  "projectName": "崇明叶菜遮阳示范棚",
+  "planCode": "PLAN-EXCHANGE-001",
+  "greenhouseModel": "GH-80 装配式拱棚",
+  "source": "智慧方案设计软件 · 轨道与设备交换文件",
+  "tracks": [
+    { "name": "西侧一跨轨道", "code": "PLAN-T01", "z": -4.5, "strokeMm": 5000, "speedMps": 0.28, "motorModel": "GH-RM550", "rampUpS": 0.9, "rampDownS": 1.2 },
+    { "name": "中西跨轨道", "code": "PLAN-T02", "z": -1.5, "strokeMm": 5200, "speedMps": 0.3, "motorModel": "GH-RM750", "rampUpS": 0.8, "rampDownS": 1.0 },
+    { "name": "中东跨轨道", "code": "PLAN-T03", "z": 1.5, "strokeMm": 5200, "speedMps": 0.3, "motorModel": "GH-RM750", "rampUpS": 0.8, "rampDownS": 1.0 },
+    { "name": "东侧一跨轨道", "code": "PLAN-T04", "z": 4.5, "strokeMm": 5000, "speedMps": 0.28, "motorModel": "GH-RM550", "rampUpS": 0.9, "rampDownS": 1.2 }
+  ]
+}
