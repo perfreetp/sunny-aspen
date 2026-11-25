@@ -1,0 +1,32 @@
+{
+  "name": "grain-profile-thermal-map",
+  "version": "1.0.0",
+  "description": "粮堆剖面温度云图工具（Konva + 原生 TypeScript + Web Components）",
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "tsc --noEmit && vite build",
+    "preview": "vite preview",
+    "typecheck": "tsc --noEmit",
+    "smoke": "node scripts/smoke-browser.mjs"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/perfreetp/sunny-aspen.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/perfreetp/sunny-aspen/issues"
+  },
+  "homepage": "https://github.com/perfreetp/sunny-aspen#readme",
+  "dependencies": {
+    "konva": "^9.3.22"
+  },
+  "devDependencies": {
+    "puppeteer-core": "^24.43.1",
+    "typescript": "^5.9.3",
+    "vite": "^7.3.8"
+  }
+}
