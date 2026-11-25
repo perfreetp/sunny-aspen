@@ -1,0 +1,23 @@
+{
+  "name": "silo-ventilation-planner",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "vite --host 127.0.0.1",
+    "build": "vite build",
+    "preview": "vite preview --host 127.0.0.1",
+    "verify:domain": "node scripts/verify-domain.mjs",
+    "check:browser": "node scripts/browser-check.mjs",
+    "check": "npm run verify:domain && npm run build"
+  },
+  "dependencies": {
+    "pixi.js": "^8.23.0",
+    "svelte": "^5.59.1"
+  },
+  "devDependencies": {
+    "@sveltejs/vite-plugin-svelte": "^7.3.2",
+    "puppeteer-core": "^25.18.1",
+    "vite": "^8.3.8"
+  }
+}

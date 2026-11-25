@@ -1,0 +1,88 @@
+:root {
+  font-family: "Segoe UI", "PingFang SC", "Microsoft YaHei", system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
+  color: #0f172a;
+  background:
+    radial-gradient(circle at 8% -8%, rgba(14, 165, 233, 0.16), transparent 30rem),
+    radial-gradient(circle at 96% 0%, rgba(37, 99, 235, 0.12), transparent 28rem),
+    linear-gradient(180deg, #f8fafc 0%, #eef4fb 48%, #f8fafc 100%);
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  margin: 0;
+  min-width: 320px;
+  min-height: 100%;
+}
+
+body {
+  min-height: 100vh;
+}
+
+button,
+input,
+select,
+textarea {
+  font-family: inherit;
+}
+
+button:focus-visible,
+input:focus-visible,
+select:focus-visible,
+textarea:focus-visible {
+  outline: 3px solid rgba(14, 165, 233, 0.28);
+  outline-offset: 1px;
+}
+
+p,
+h1,
+h2,
+h3 {
+  overflow-wrap: break-word;
+}
+
+::-webkit-scrollbar {
+  width: 9px;
+  height: 9px;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #cbd5e1;
+  border-radius: 999px;
+  border: 2px solid transparent;
+  background-clip: content-box;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #94a3b8;
+  background-clip: content-box;
+}
+
+@media print {
+  :root {
+    background: white;
+  }
+
+  body {
+    background: white;
+  }
+
+  .header-actions,
+  .confirm-row,
+  .column-actions,
+  .left-rail,
+  .canvas-hint {
+    display: none !important;
+  }
+
+  .design-page {
+    grid-template-columns: 1fr !important;
+  }
+}
