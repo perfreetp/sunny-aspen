@@ -16,3 +16,13 @@ node_modules/
 __pycache__/
 .venv/
 venv/
+
+# Node / Solid / Vite
+dist/
+dist-ssr/
+coverage/
+*.local
+
+# OS / editor
+.DS_Store
+Thumbs.db

@@ -1,0 +1,25 @@
+{
+  "name": "mech-procedural-parts-studio",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "vite --host 127.0.0.1",
+    "build": "tsc --noEmit && vite build",
+    "preview": "vite preview --host 127.0.0.1",
+    "test": "vitest run"
+  },
+  "dependencies": {
+    "@babylonjs/core": "^8.0.0",
+    "earcut": "^3.2.4",
+    "solid-js": "^1.9.0"
+  },
+  "devDependencies": {
+    "@solidjs/testing-library": "^0.8.10",
+    "jsdom": "^26.0.0",
+    "typescript": "^5.8.0",
+    "vite": "^7.0.0",
+    "vite-plugin-solid": "^2.11.0",
+    "vitest": "^3.0.0"
+  }
+}
