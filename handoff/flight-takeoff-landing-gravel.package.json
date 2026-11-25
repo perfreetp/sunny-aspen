@@ -1,0 +1,142 @@
+{
+  "format": "flight-fx-package",
+  "formatVersion": 1,
+  "exportedAt": "2026-11-25T21:33:00.823Z",
+  "subject": {
+    "code": "TAKEOFF_LANDING",
+    "name": "起飞接地科目 · 尾流扬尘特效",
+    "triggerEvents": [
+      "flight.touchdown",
+      "flight.liftoff",
+      "flight.gear_changed"
+    ],
+    "attachPoint": "aircraft.root"
+  },
+  "deterministic": {
+    "seed": 20261126,
+    "fixedStep": 0.016666666666666666,
+    "rng": "mulberry32",
+    "rule": "same seed + actionProfile + parameters => same particle stream"
+  },
+  "action": {
+    "profile": "takeoff",
+    "controlMode": "sequence",
+    "timeScale": 1
+  },
+  "surface": {
+    "id": "gravel",
+    "label": "砂石/碎石道面",
+    "dustColor": "#d2b184"
+  },
+  "parameters": {
+    "schema": "flight-fx-package",
+    "packageVersion": 1,
+    "meta": {
+      "name": "起飞接地科目 · 尾流扬尘特效",
+      "subjectCode": "TAKEOFF_LANDING",
+      "variant": "gravel",
+      "author": "",
+      "note": "发动机尾流与接地扬尘参数包；同一 seed + actionProfile 必须回放同一套确定性烟效。"
+    },
+    "seed": 20261126,
+    "surfaceId": "gravel",
+    "controlMode": "sequence",
+    "actionProfile": "takeoff",
+    "playing": true,
+    "timeScale": 1,
+    "flight": {
+      "throttle": 0,
+      "ratedThrustKn": 160,
+      "airspeed": 0,
+      "altitude": 0,
+      "gearDown": true,
+      "weightOnWheels": true,
+      "headingDeg": 0
+    },
+    "wake": {
+      "enabled": true,
+      "length": 28,
+      "particleCount": 2600,
+      "concentration": 0.68,
+      "diffusion": 0.82,
+      "riseSpeed": 0.55,
+      "coarseness": 0.58,
+      "turbulence": 0.52,
+      "lifetimeScale": 1,
+      "opacity": 0.24
+    },
+    "dust": {
+      "enabled": true,
+      "particleCount": 3000,
+      "concentration": 0.9,
+      "diffusion": 1.18,
+      "riseSpeed": 1.55,
+      "coarseness": 0.82,
+      "ringRadius": 8.4,
+      "outwardSpeed": 6.4,
+      "lifetime": 3.4,
+      "opacity": 0.38
+    },
+    "simulation": {
+      "fixedStep": 0.016666666666666666,
+      "collision": true,
+      "showColliders": false,
+      "followCamera": true
+    },
+    "locks": {
+      "wake.length": false,
+      "wake.particleCount": false
+    }
+  },
+  "linkage": {
+    "source": "flight.ratedThrustKn",
+    "manualLocks": {
+      "wake.length": false,
+      "wake.particleCount": false
+    },
+    "thrustSuggestions": {
+      "wake.length": 28,
+      "wake.particleCount": 2600
+    },
+    "runtimeThrottleFormula": "power01 = idleFloor + (1-idleFloor)*throttle; actualWakeLength = wake.length * (0.18 + 0.82*power01); concentration scales emission and alpha.",
+    "preserveRule": "Locked/manual wake.length and wake.particleCount are baseline values and must not be overwritten by thrust changes."
+  },
+  "bindings": {
+    "throttle": "flight.throttle",
+    "ratedThrustKn": "flight.ratedThrustKn",
+    "airspeedMps": "flight.airspeed",
+    "altitudeM": "flight.altitude",
+    "gearDown": "flight.gearDown",
+    "weightOnWheels": "flight.weightOnWheels",
+    "touchdownEvent": "flight.touchdown",
+    "liftoffEvent": "flight.liftoff"
+  },
+  "effects": [
+    {
+      "id": "engine-wake",
+      "type": "gpu-point-smoke",
+      "anchors": [
+        "engine_L_exhaust",
+        "engine_R_exhaust"
+      ],
+      "emitWhen": "wake.enabled && throttle > 0.01",
+      "update": "world-space particles, seeded turbulence, AABB obstacle avoidance"
+    },
+    {
+      "id": "ground-dust-ring",
+      "type": "gpu-point-smoke-burst",
+      "anchors": [
+        "gear_nose_contact",
+        "gear_main_L_contact",
+        "gear_main_R_contact"
+      ],
+      "emitWhen": "touchdown rising edge OR (dust.enabled && gearDown && weightOnWheels && airspeed > 1)",
+      "stopWhen": "weightOnWheels === false"
+    }
+  ],
+  "collision": {
+    "mode": "expanded-aabb-slide-and-rise",
+    "colliderSource": "scene.landscape.buildings",
+    "noClip": true
+  }
+}

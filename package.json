@@ -1,0 +1,22 @@
+{
+  "name": "flight-fx-studio",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "description": "起飞/接地科目发动机尾流与地面扬尘特效调校及打包工具",
+  "scripts": {
+    "dev": "vite --host 0.0.0.0",
+    "build": "vite build",
+    "preview": "vite preview",
+    "package:handoff": "node scripts/build-handoff-package.mjs",
+    "package:zip": "node scripts/build-handoff-package.mjs && powershell -NoProfile -Command \"Remove-Item handoff/flight-fx-handoff.zip -Force -ErrorAction SilentlyContinue; Compress-Archive -Path handoff/*.json,handoff/README.md -DestinationPath handoff/flight-fx-handoff.zip -Force\""
+  },
+  "dependencies": {
+    "three": "^0.180.0",
+    "vue": "^3.5.13"
+  },
+  "devDependencies": {
+    "@vitejs/plugin-vue": "^6.0.0",
+    "vite": "^7.0.0"
+  }
+}

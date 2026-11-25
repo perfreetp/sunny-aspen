@@ -1,0 +1,153 @@
+{
+  "format": "flight-fx-package",
+  "formatVersion": 1,
+  "exportedAt": "2026-11-25T21:33:00.822Z",
+  "subject": {
+    "code": "TAKEOFF_LANDING",
+    "name": "起飞接地科目 · 尾流扬尘特效",
+    "triggerEvents": [
+      "flight.touchdown",
+      "flight.liftoff",
+      "flight.gear_changed"
+    ],
+    "attachPoint": "aircraft.root"
+  },
+  "deterministic": {
+    "seed": 20261126,
+    "fixedStep": 0.016666666666666666,
+    "rng": "mulberry32",
+    "rule": "same seed + actionProfile + parameters => same particle stream"
+  },
+  "action": {
+    "profile": "takeoff",
+    "controlMode": "sequence",
+    "timeScale": 1
+  },
+  "surface": {
+    "id": "concrete",
+    "label": "水泥混凝土",
+    "dustColor": "#c7c0b2"
+  },
+  "parameters": {
+    "schema": "flight-fx-package",
+    "packageVersion": 1,
+    "meta": {
+      "name": "起飞接地科目 · 尾流扬尘特效",
+      "subjectCode": "TAKEOFF_LANDING",
+      "variant": "default",
+      "author": "",
+      "note": "发动机尾流与接地扬尘参数包；同一 seed + actionProfile 必须回放同一套确定性烟效。"
+    },
+    "seed": 20261126,
+    "surfaceId": "concrete",
+    "controlMode": "sequence",
+    "actionProfile": "takeoff",
+    "playing": true,
+    "timeScale": 1,
+    "flight": {
+      "throttle": 0,
+      "ratedThrustKn": 160,
+      "airspeed": 0,
+      "altitude": 0,
+      "gearDown": true,
+      "weightOnWheels": true,
+      "headingDeg": 0
+    },
+    "wake": {
+      "enabled": true,
+      "length": 28,
+      "particleCount": 2600,
+      "concentration": 0.68,
+      "diffusion": 0.82,
+      "riseSpeed": 0.55,
+      "coarseness": 0.58,
+      "turbulence": 0.52,
+      "lifetimeScale": 1,
+      "opacity": 0.24
+    },
+    "dust": {
+      "enabled": true,
+      "particleCount": 2200,
+      "concentration": 0.72,
+      "diffusion": 0.9,
+      "riseSpeed": 1.25,
+      "coarseness": 0.66,
+      "ringRadius": 6.4,
+      "outwardSpeed": 4.8,
+      "lifetime": 2.8,
+      "opacity": 0.38
+    },
+    "simulation": {
+      "fixedStep": 0.016666666666666666,
+      "collision": true,
+      "showColliders": false,
+      "followCamera": true
+    },
+    "locks": {
+      "wake.length": false,
+      "wake.particleCount": false
+    }
+  },
+  "linkage": {
+    "source": "flight.ratedThrustKn",
+    "manualLocks": {
+      "wake.length": false,
+      "wake.particleCount": false
+    },
+    "thrustSuggestions": {
+      "wake.length": 28,
+      "wake.particleCount": 2600
+    },
+    "runtimeThrottleFormula": "power01 = idleFloor + (1-idleFloor)*throttle; actualWakeLength = wake.length * (0.18 + 0.82*power01); concentration scales emission and alpha.",
+    "preserveRule": "Locked/manual wake.length and wake.particleCount are baseline values and must not be overwritten by thrust changes."
+  },
+  "bindings": {
+    "throttle": "flight.throttle",
+    "ratedThrustKn": "flight.ratedThrustKn",
+    "airspeedMps": "flight.airspeed",
+    "altitudeM": "flight.altitude",
+    "gearDown": "flight.gearDown",
+    "weightOnWheels": "flight.weightOnWheels",
+    "touchdownEvent": "flight.touchdown",
+    "liftoffEvent": "flight.liftoff"
+  },
+  "effects": [
+    {
+      "id": "engine-wake",
+      "type": "gpu-point-smoke",
+      "anchors": [
+        "engine_L_exhaust",
+        "engine_R_exhaust"
+      ],
+      "emitWhen": "wake.enabled && throttle > 0.01",
+      "update": "world-space particles, seeded turbulence, AABB obstacle avoidance"
+    },
+    {
+      "id": "ground-dust-ring",
+      "type": "gpu-point-smoke-burst",
+      "anchors": [
+        "gear_nose_contact",
+        "gear_main_L_contact",
+        "gear_main_R_contact"
+      ],
+      "emitWhen": "touchdown rising edge OR (dust.enabled && gearDown && weightOnWheels && airspeed > 1)",
+      "stopWhen": "weightOnWheels === false"
+    }
+  ],
+  "collision": {
+    "mode": "expanded-aabb-slide-and-rise",
+    "colliderSource": "scene.landscape.buildings",
+    "noClip": true
+  },
+  "handoff": {
+    "configKey": "effects.takeoffLanding",
+    "fileName": "flight-takeoff-landing-fx.package.json",
+    "importExample": "import pkg from './flight-takeoff-landing-fx.package.json' with { type: 'json' }\nsubjectConfig.effects.takeoffLanding = pkg",
+    "integration": [
+      "将 parameters 合并到特效运行时",
+      "把 flight.throttle / ratedThrustKn / gearDown / weightOnWheels 接到真实飞行参数",
+      "监听 touchdown / liftoff 事件",
+      "同一 seed 下重播 actionProfile 可复现烟效"
+    ]
+  }
+}

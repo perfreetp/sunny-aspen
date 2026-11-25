@@ -1,0 +1,33 @@
+{
+  "subjectCode": "TAKEOFF_LANDING",
+  "title": "起飞、接地科目特效",
+  "effects": {
+    "takeoffLanding": {
+      "enabled": true,
+      "packageKey": "flight-fx-package",
+      "packageFile": "./flight-takeoff-landing-fx.package.json",
+      "materialVariantMap": {
+        "concrete": "./flight-takeoff-landing-concrete.package.json",
+        "asphalt": "./flight-takeoff-landing-asphalt.package.json",
+        "gravel": "./flight-takeoff-landing-gravel.package.json",
+        "dirt": "./flight-takeoff-landing-dirt.package.json",
+        "snow": "./flight-takeoff-landing-snow.package.json"
+      },
+      "bindings": {
+        "throttle": "flight.throttle",
+        "ratedThrustKn": "flight.ratedThrustKn",
+        "airspeedMps": "flight.airspeed",
+        "altitudeM": "flight.altitude",
+        "gearDown": "flight.gearDown",
+        "weightOnWheels": "flight.weightOnWheels",
+        "touchdownEvent": "flight.touchdown",
+        "liftoffEvent": "flight.liftoff"
+      },
+      "events": {
+        "touchdown": "GroundDustRing.burst",
+        "liftoff": "GroundDustRing.stopContinuousEmission",
+        "throttleChanged": "EngineWake.setPower"
+      }
+    }
+  }
+}
