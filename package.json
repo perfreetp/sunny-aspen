@@ -1,0 +1,33 @@
+{
+  "name": "greenhouse-irrigation-schematic",
+  "version": "1.0.0",
+  "description": "温室灌溉管网从首部到滴头/喷头的分段接出工具 (React + Paper.js)",
+  "scripts": {
+    "dev": "vite",
+    "build": "tsc --noEmit && vite build",
+    "preview": "vite preview",
+    "test": "vitest run",
+    "test:watch": "vitest",
+    "typecheck": "tsc --noEmit",
+    "e2e": "node scripts/e2e.mjs",
+    "shots": "node scripts/visual.mjs"
+  },
+  "license": "MIT",
+  "type": "module",
+  "dependencies": {
+    "paper": "^0.17.0",
+    "react": "^19.3.1",
+    "react-dom": "^19.3.1"
+  },
+  "devDependencies": {
+    "@types/node": "^24.10.0",
+    "@types/react": "^19.3.3",
+    "@types/react-dom": "^19.3.0",
+    "@vitejs/plugin-react": "^5.1.2",
+    "playwright": "^1.65.1",
+    "typescript": "^5.9.3",
+    "vite": "^7.3.8",
+    "vitest": "^5.1.2"
+  },
+  "private": true
+}
